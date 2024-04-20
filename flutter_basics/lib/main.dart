@@ -1,4 +1,4 @@
-import 'package:intl_phone_field/intl_phone_field.dart';
+//import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/material.dart';
 
 void main()
@@ -37,7 +37,7 @@ class MyHomePage extends StatefulWidget{
 class MyHomePageState extends State<MyHomePage>{
 
   TextEditingController phControler = TextEditingController();
-  final GlobalKey<FormState> _Formkey = GlobalKey<FormState>();
+ // final GlobalKey<FormState> _Formkey = GlobalKey<FormState>();
 
   var _width = 100.0;
   var _height = 200.0;
