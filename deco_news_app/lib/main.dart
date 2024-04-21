@@ -1,4 +1,5 @@
 import 'package:deco_news_app/view/home_Screen.dart';
+import 'package:deco_news_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }

@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-enum FilterList { bbcNews, geographic, reuters, cnn,espncric}
+enum FilterList { bbcNews, geographic, reuters, cnn}
 class _HomeScreenState extends State<HomeScreen> {
 
   NewsViewModel newsViewModel = NewsViewModel();
@@ -58,9 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 if(FilterList.cnn.name== item.name) {
                   name = 'cnn';
                 }
-                if(FilterList.espncric.name== item.name){
-                  name == 'espn-cric-info';
-                }
                // newsViewModel.fetchNewsChannelsHeadlinesApi();
                 setState(() {
                   selectedMenu = item;
@@ -80,12 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     value: FilterList.reuters,
                   ),
                   PopupMenuItem<FilterList>(
-                    child: Text('cnn'),
+                    child: Text('CNN'),
                     value: FilterList.cnn,
-                  ),
-                  PopupMenuItem<FilterList>(
-                    child: Text('espn-cric-info'),
-                    value: FilterList.espncric,
                   ),
                 ]
             )
@@ -162,8 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Container(
                                               width: width * 0.7,
                                               child: Text(snapshot.data!.articles![index].title.toString(),
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,),
+                                              maxLines: 4,
+                                              overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                             Spacer(),
                                             Container(
@@ -172,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                               Text(snapshot.data!.articles![index].source!.name.toString(),
-                                              maxLines: 2,
+                                              maxLines: 4,
                                               overflow: TextOverflow.ellipsis,),
                                                 Text(format.format(datetime)),
                                                 ],

@@ -40,7 +40,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     final width = MediaQuery.sizeOf(context).width * 1;
     final height = MediaQuery.sizeOf(context).height * 1;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title:  Text("Deco News"),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
