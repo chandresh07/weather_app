@@ -39,8 +39,12 @@ class _HomeState extends State<Home> {
   var result = "";
   var bgColor = Colors.white;
 
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
@@ -62,7 +66,7 @@ class _HomeState extends State<Home> {
                     Image.asset(
                       "assets/images/yoga.png",
                       width: double.infinity,
-                      height: 300,
+                      height: height * 0.80,
                     ),
                     const Text(
                       'Calculate Your Body Mass Index',

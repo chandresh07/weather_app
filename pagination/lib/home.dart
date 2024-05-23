@@ -1,10 +1,13 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pagination/main.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
+
+
 class home extends StatefulWidget {
   @override
   State<home> createState() => _homeState();
@@ -13,7 +16,10 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   var data;
   Future<void> GetPhotosApi()async{
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    if (kDebugMode) {
+      print(response.body);
+    }
     if (response.statusCode == 200){
       data = jsonDecode(response.body.toString());
     }else{
@@ -36,7 +42,6 @@ class _homeState extends State<home> {
           ),
         ),
         actions: [
-
           CircleAvatar(
               backgroundColor:Colors.black,
             child: IconButton(onPressed: (){}, icon: Icon(Ionicons.search,color: Colors.white,))),
@@ -88,104 +93,122 @@ class _homeState extends State<home> {
       ),
       body: ListView(
         children: [
-          ListView.builder(
-            itemCount: 50,
-              shrinkWrap: true,
-              itemBuilder: (context,index){
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)
-                ),
-                child: Container(
-                  height: screenheight * 0.30,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                           Padding(
-                             padding: const EdgeInsets.only(right: 8.0),
-                             child: Text("#${index+1}",textAlign: TextAlign.justify,),
-                           ),
-                            CircleAvatar(
-                                backgroundImage:NetworkImage("https://picsum.photos/200/300")
-                            ),
-                          Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text("John Doe"),
+          FutureBuilder(
+            future: GetPhotosApi(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return ListView.builder(
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0)
+                          ),
+                          child: Container(
+                            height: screenheight * 0.30,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 8.0),
+                                        child: Text("#${index + 1}",
+                                          textAlign: TextAlign.justify,),
+                                      ),
+                                      CircleAvatar(
+                                         // backgroundImage: NetworkImage(data[index]['thumbnailUrl'].toString(),),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Text(data![index]['name'].toString(),),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8.0),
+                                            child: Text(data[index]['company']['name'].toString())
+                                            //Text("This is untitled Profile", style: TextStyle(fontSize: 12),),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      SizedBox(
+                                          width: screenwidth * 0.30,
+                                          child: ElevatedButton(
+                                              onPressed: () {},
+                                              child: Text("Follower 0"))),
+                                      SizedBox(
+                                        width: screenwidth * 0.40,
+                                        child: ElevatedButton(onPressed: () {},
+                                            child: Text("Follow",
+                                              style: TextStyle(color: Colors.black),), style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                 // SizedBox(height: 10,),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Return total (%)"),
+                                       Text('lat '+data[index]['address']['geo']['lat'].toString())
+                                        // Text("11.52%"),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Max profit (%)"),
+                                      Text('lng '+data[index]['address']['geo']['lng'].toString())
+
+                                     // Text("25.47%"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("total profit (%)"),
+                                      Text("499.59%"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Perfoance fee (%)"),
+                                      Text("20.00-30.00%"),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text("This is untitled Profile",style: TextStyle(fontSize: 12),),
-                              )
-                            ],
-                          ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width:screenwidth * 0.30,
-                                child: ElevatedButton(onPressed: (){}, child:Text( "Follower 0"))),
-                            SizedBox(
-                              width: screenwidth * 0.40,
-                              child: ElevatedButton(onPressed: (){}, child:Text( "Follow",style: TextStyle(color: Colors.black),),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white
-                              )),
                             ),
-
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Return total (%)"),
-                              Text("11.52%"),
-                            ],
                           ),
                         ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                      Text("Max profit (%)"),
-                  Text("25.47%"),
-                  ],
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    Text("total profit (%)"),
-                Text("499.59%"),
-                ],
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Text("Perfoance fee (%)"),
-              Text("20.00-30.00%"),
-              ],
-            ),
-
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          })
+                      );
+                    });
+              }
+            }
+          )
         ],
       ),
     );

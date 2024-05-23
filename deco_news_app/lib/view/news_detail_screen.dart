@@ -71,7 +71,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     ],
                   ),
                   SizedBox(height: height * .03,),
-                  Text(widget.description),
+                  Text(widget.description,
+                  overflow: TextOverflow.ellipsis ,),
                 ],
             ),
           )
