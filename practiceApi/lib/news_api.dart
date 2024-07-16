@@ -1,14 +1,12 @@
-
-
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:practiceapi/models/NewsApiModel.dart';
 
 
-class view extends StatefulWidget {  @override
+class view extends StatefulWidget {
+  @override
   State<view> createState() => _viewState();
 }
 

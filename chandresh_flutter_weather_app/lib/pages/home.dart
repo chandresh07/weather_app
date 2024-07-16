@@ -124,10 +124,13 @@ class _HomeState extends State<Home> {
                             Image.network(
                                 "http://openweathermap.org/img/wn/$icon@2x.png"),
                             SizedBox(
-                              width: 20,
+                              width: screenWidth * 0.02,
                             ),
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+
                                 Text(
                                   "$des",
                                   style: TextStyle(
@@ -166,11 +169,11 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   "$temp",
-                                  style: TextStyle(fontSize: 70),
+                                  style: TextStyle(fontSize: screenHeight * .085),
                                 ),
                                 Text(
                                   "C",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: screenHeight * .025),
                                 )
                               ],
                             )
@@ -197,7 +200,7 @@ class _HomeState extends State<Home> {
                               children: [Icon(WeatherIcons.day_windy)],
                             ),
                             SizedBox(
-                              height: 30,
+                              height: screenHeight * .010,
                             ),
                             Text(
                               "$air",
@@ -218,6 +221,7 @@ class _HomeState extends State<Home> {
                         margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
                         padding: EdgeInsets.all(26),
                         height: screenHeight * .26,
+                        width: screenWidth * .10,
                         child: Column(
                           children: [
                             Row(
@@ -225,7 +229,7 @@ class _HomeState extends State<Home> {
                               children: [Icon(WeatherIcons.humidity)],
                             ),
                             SizedBox(
-                              height: screenHeight * .038,
+                              height: screenHeight * .010,
                             ),
                             Text(
                               "$hum",
@@ -240,7 +244,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(
-                  height: screenHeight * .08,
+                  height: screenHeight * .0010,
                 ),
                 Container(
                   padding: EdgeInsets.all(30),

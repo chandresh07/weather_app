@@ -1,9 +1,10 @@
-
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+
+// Api calling without making the model
 
 class home extends StatefulWidget {
   const home({super.key});
